@@ -75,7 +75,7 @@ const fakeJSON = [
             "rate": 4
         },
         "image": "images/feta.jpg",
-        "description": "Fresh feta from the local shop, consume cautiously!"
+        "description": "Fresh cow feta, made at a nearby dairy farm!"
     }
 
 ];
@@ -235,7 +235,7 @@ const returnProvinces = () => {return provinces;}
 const returnProvinceCodes = () => {return provinceCodes;}
 
 
-console.log(`⠀%c
+console.warn(`⠀%c
   ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡴⠞⢳⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡔⠋⠀⢰⠎⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⢆⣤⡞⠃⠀⠀⠀⠀⠀⠀

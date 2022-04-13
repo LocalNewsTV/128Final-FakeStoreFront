@@ -1,7 +1,7 @@
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣶⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣄⣀⡀⣠⣾⡇⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀Matthew Logan Final Assignment for ICS 128 - Web Scripting
+⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀ Final Assignment for ICS 128 - Web Scripting
 ⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⢿⣿⣿⡇⠀⠀⠀⠀
 ⠀⣶⣿⣦⣜⣿⣿⣿⡟⠻⣿⣿⣿⣿⣿⣿⣿⡿⢿⡏⣴⣺⣦⣙⣿⣷⣄⠀⠀⠀
 ⠀⣯⡇⣻⣿⣿⣿⣿⣷⣾⣿⣬⣥⣭⣽⣿⣿⣧⣼⡇⣯⣇⣹⣿⣿⣿⣿⣧⠀⠀
@@ -12,7 +12,7 @@
  *             this class adds the functionality of holding a quantity value and methods to modify the quantity
  * 
  *************************************************************************************************************/
-class Item {
+ class Item {
     constructor(data){
         this._category = data.category;
         this._description = data.description;
@@ -547,6 +547,7 @@ const sendOrder = async () => {
         $('#evangelion, #confirmationOnSend').html("");
         $('#evangelion').append(evangelion);
         const button = newE('button');  
+        $('#successFail').removeClass("row justify-content-center")
         $(button).addClass("btn btn-success");
         $(button).html("Thank you");
         $(button).attr("data-dismiss", "modal");
@@ -563,6 +564,7 @@ const sendOrder = async () => {
         const table = newE('table');
         $(table).addClass("table table-hover");
         const tbody = newE('tbody');
+        $('#successFail').addClass("row justify-content-center");
         $(table).append(tbody);
         $("#confirmationOnSend").append(sorry, steps);
         const button = newE("button")
@@ -830,13 +832,13 @@ const autoMarkingHelper = () =>{
     $("#expiration").val("01/25");
     $("#security").val("645");
     $("#city1, #city2").val("Victoria");
-    $("#name1, #name2, #name3").val("Matthew Smith");
-    $("#address12, #address11").val("7854 Someplace Street");
+    $("#name1, #name2, #name3").val("Joe Smith");
+    $("#address12, #address11").val("322 Some Street");
     $("#address22, #address21").val("");
-    $("#city1, #city2").val("Kelowna");
+    $("#city1, #city2").val("St Johns");
     $("#postalZip1, #postalZip2, #postalZip3").val("V9E 2C1");
-    $("#phone1, #phone2").val("890-555-3000");
-    $("#email1, #email2").val("NotaRealEmailAddress@gmail.com");
+    $("#phone1, #phone2").val("800-555-3000");
+    $("#email1, #email2").val("Joe@JoeSchmos.com");
 }
 
 const cartFiller = () => {
