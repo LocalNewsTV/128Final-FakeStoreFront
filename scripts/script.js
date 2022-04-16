@@ -1,7 +1,7 @@
 /*
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣿⣶⣄⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣦⣄⣀⡀⣠⣾⡇⠀⠀⠀⠀
-⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀ Final Assignment for ICS 128 - Web Scripting
+⠀⠀⠀⠀⠀⠀⣴⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀⠀⠀⠀Matthew Logan Final Assignment for ICS 128 - Web Scripting
 ⠀⠀⠀⠀⢀⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠿⢿⣿⣿⡇⠀⠀⠀⠀
 ⠀⣶⣿⣦⣜⣿⣿⣿⡟⠻⣿⣿⣿⣿⣿⣿⣿⡿⢿⡏⣴⣺⣦⣙⣿⣷⣄⠀⠀⠀
 ⠀⣯⡇⣻⣿⣿⣿⣿⣷⣾⣿⣬⣥⣭⣽⣿⣿⣧⣼⡇⣯⣇⣹⣿⣿⣿⣿⣧⠀⠀
@@ -12,7 +12,7 @@
  *             this class adds the functionality of holding a quantity value and methods to modify the quantity
  * 
  *************************************************************************************************************/
- class Item {
+class Item {
     constructor(data){
         this._category = data.category;
         this._description = data.description;
@@ -87,8 +87,9 @@ let cartTotal; //Holds the pre-tax/shipping total of our cart. Lots of math base
  *  getFakeItemsAPI() - Called at websites load, calls data from fakestoreapi then calls populateCardStack();
  * 
  ************************************************************************************************************/
+let cookiePlaceholder;
 const getFakeItemsAPI = async () => {
-    let cookiePlaceholder = [];
+     cookiePlaceholder = [];
     try{
         const url="https://fakestoreapi.com/products";
         const responseURL = await fetch(url);
@@ -99,7 +100,7 @@ const getFakeItemsAPI = async () => {
             dataSet = await responseURL.json();
     } finally {
         
-        dataSet = $.extend(dataSet, returnJSON());
+        dataSet = returnJSON().concat(dataSet);
         if(get_cookie("shopping_cart_items_matthew2")){
             cookiePlaceholder = get_cookie("shopping_cart_items_matthew2")
         }
@@ -151,23 +152,24 @@ let populateCardStack = (data) => {
     currencyIcon = currency[select].symbol; 
     decimalAmount = currency[select].decimal
     currencyEX = parseFloat(rawCurrencyData.cad[select]);
-
+    let color = 220;
     for(let i = 0; i < data.length; i++){
         const item = new Item(data[i]);
         const currentValue = () => (data[i].price * currencyEX).toFixed(decimalAmount);
 
         const cardMain = newE(`div`);
-        $(cardMain).addClass("col-md-4 mb-5");
+        $(cardMain).addClass("col-md-4 mt-3");
 
         const card = newE("div");
         card.id = item.id;
         $(card).addClass("card border-dark");
-        $(card).css({"max-width": "18rem;"});
 
         const cardImage = newE(`img`);
         cardImage.src = data[i].image;
-        $(cardImage).css({"max-height": "350px", "object-fit": "contain"});
+        $(cardImage).css({"max-height": "300px", "object-fit": "contain"});
         $(cardImage).addClass("card-img-top mt-5");
+        $(cardImage).css({"border-bottom": "1px dashed black",
+                          "padding-bottom": "10px"})
         $(card).append(cardImage);
 
         const cardBody = newE(`div`);
@@ -199,7 +201,8 @@ let populateCardStack = (data) => {
 
         $(cardBody).append(button);
         $(cardMain).append(card);
-
+        $(cardBody).css({"background-color": `rgb(${color}, ${color}, ${color})`})
+        color -= 2;
         $('#products').append(cardMain);
         itemCards.push(item);
     }
@@ -268,9 +271,12 @@ const updateShoppingCart= () => {
     }
     if(cartTotal == 0){
         $('#checkoutButton').attr("disabled", true);
+        $('#viewCart').html(`View Cart  <i class="bi bi-cart"></i>`)
+        
     }
     else{
         $('#checkoutButton').removeAttr("disabled");
+        $('#viewCart').html(`View Cart <i class="bi bi-cart-plus"></i>`)
     }
     set_cookie("shopping_cart_items_matthew2", itemCards);
 }
@@ -536,23 +542,7 @@ const sendOrder = async () => {
         if(response.status == "NOT SUBMITTED"){
             throw new Error("Uh oh!");
         } 
-        const evangelion = newE('img');
-        evangelion.src = "images/congratulations-shinji.gif"
-        const congratulations = $('<h6></h6>')
-        $(congratulations).html("Success!")
-        $('#evangelion').css({"overflow": "hidden"});
-        const p = $('<p></p>');
-        $(p).addClass("text-center");
-        $(p).html("Your order has been confirmed, It will be delivered to your dreams in 9-15 business days");
-        $('#evangelion, #confirmationOnSend').html("");
-        $('#evangelion').append(evangelion);
-        const button = newE('button');  
-        $('#successFail').removeClass("row justify-content-center")
-        $(button).addClass("btn btn-success");
-        $(button).html("Thank you");
-        $(button).attr("data-dismiss", "modal");
-        $('#confirmationOnSend').append(congratulations, p, button);
-        emptyCart();
+        confirmSuccess();
 
     } catch(ex) {
         $('#evangelion, #confirmationOnSend').html("");
@@ -575,8 +565,6 @@ const sendOrder = async () => {
             $('#confirmationDetail').fadeIn("fast");
         })
         
-
-
         for(let i = 0; i < myArray.length; i++){
             const key = myArray[i][0];
             const errorMess = myArray[i][1];
@@ -606,7 +594,30 @@ const sendOrder = async () => {
         $('#confirmationOnSend').append(button);
     }
 }
-
+/**************************************************************************************************************
+ * 
+ *  confirmSuccess() - Posted when an order has successfully been received by the server
+ * 
+ ***************************************************************************************************************/
+const confirmSuccess = () => {
+    const evangelion = newE('img');
+    evangelion.src = "images/congratulations-shinji.gif"
+    const congratulations = $('<h6></h6>')
+    $(congratulations).html("Success!")
+    $('#evangelion').css({"overflow": "hidden"});
+    const p = $('<p></p>');
+    $(p).addClass("text-center");
+    $(p).html("Your order has been confirmed, It will be delivered to your dreams in 9-15 business days");
+    $('#evangelion, #confirmationOnSend').html("");
+    $('#evangelion').append(evangelion);
+    const button = newE('button');  
+    $('#successFail').removeClass("row justify-content-center")
+    $(button).addClass("btn btn-success");
+    $(button).html("Thank you");
+    $(button).attr("data-dismiss", "modal");
+    $('#confirmationOnSend').append(congratulations, p, button);
+    emptyCart();
+}
 /**************************************************************************************************************
  * 
  *  taxMan() - This section will Generate our taxes based on the items in our cart, and applies our shipping amounts
@@ -711,39 +722,44 @@ const confirmationLoader = () => {
     //Build it up
     const th = $('<thead></thead>');
     const tRow = $('<tr></tr>');
-    const imageBan = $('<td></td>')
-    const tbody = $('<tbody></tbody>')
+    const imageBan = $('<td></td>');
+    const tbody = $('<tbody></tbody>');
+    const quantBan = $('<td></td>');
     $(imageBan).append("Image");
-    const itemBan = $('<td></td>')
-    $(itemBan).append("Item")
-    const priceBan = $('<td></td>')
-    $(priceBan).append("Individual Price")
-    const quanTot = $('<td></td>')
+    $(quantBan).append("Quantity");
+    const itemBan = $('<td></td>');
+    $(itemBan).append("Item");
+    const priceBan = $('<td></td>');
+    $(priceBan).append("Individual Price");
+    const quanTot = $('<td></td>');
     $(quanTot).append("Total");
     //Smash it all together
     $(imageBan).addClass("font-weight-bold");
     $(itemBan).addClass("font-weight-bold");
     $(priceBan).addClass("font-weight-bold");
     $(quanTot).addClass("font-weight-bold");
-    $(tRow).append(imageBan, itemBan, priceBan, quanTot);
+    $(quantBan).addClass("font-weight-bold");
+    $(tRow).append(imageBan, itemBan, quantBan,  priceBan, quanTot);
     $(th).append(tRow);
     $('#cartPurchase').append(th, tbody);
 
     for(cards in itemCards){
         if(itemCards[cards].quantity > 0){
             const tr = $('<tr></tr>');
-            const image = $('<td></td>')
+            const image = $('<td></td>');
             const imageCont = newE("img");
             imageCont.src = itemCards[cards].image;
             $(imageCont).css({"max-height": "50px"})
             $(image).append(imageCont);
-            const item = $('<td></td>')
+            const item = $('<td></td>');
             $(item).append(itemCards[cards].title);
-            const price = $('<td></td>')
+            const quantity = $('<td></td>');
+            $(quantity).append(itemCards[cards].quantity);
+            const price = $('<td></td>');
             $(price).append(currencyIcon, (itemCards[cards].price * currencyEX).toFixed(decimalAmount));
-            const quan = $('<td></td>')
+            const quan = $('<td></td>');
             $(quan).append(currencyIcon, ((itemCards[cards].price * itemCards[cards].quantity) * currencyEX).toFixed(decimalAmount));
-            $(tr).append(image, item, price, quan);
+            $(tr).append(image, item, quantity, price, quan);
             $(tbody).append(tr);
         }
     }
@@ -832,13 +848,13 @@ const autoMarkingHelper = () =>{
     $("#expiration").val("01/25");
     $("#security").val("645");
     $("#city1, #city2").val("Victoria");
-    $("#name1, #name2, #name3").val("Joe Smith");
-    $("#address12, #address11").val("322 Some Street");
+    $("#name1, #name2, #name3").val("Joe Schmo");
+    $("#address12, #address11").val("4461 Street St");
     $("#address22, #address21").val("");
-    $("#city1, #city2").val("St Johns");
-    $("#postalZip1, #postalZip2, #postalZip3").val("V9E 2C1");
-    $("#phone1, #phone2").val("800-555-3000");
-    $("#email1, #email2").val("Joe@JoeSchmos.com");
+    $("#city1, #city2").val("Montpellier");
+    $("#postalZip1, #postalZip2, #postalZip3").val("53344");
+    $("#phone1, #phone2").val("555-555-3000");
+    $("#email1, #email2").val("JoeHimself@JoeMail.com");
 }
 
 const cartFiller = () => {
@@ -865,7 +881,11 @@ const cartFiller = () => {
     $("#currency").on("change", convertCurrency);
     updateShoppingCart();
 });
-
+$('#products').css({"background-color": "#669966",
+                    "padding-bottom": "1rem"});
+$('#feet, .modal-header').css({"background-color": "#ECECEC",
+                               "border-top": "1px solid black",
+                               "border-bottom": "1px solid black"})
 /***************************************************************************************************************
  * 
  *  Event Listeners + Quality of life additions

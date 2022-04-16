@@ -30,16 +30,15 @@
                   <li class="nav-item nav-link">| Currency:</li>
                   <li class="nav-item">
                      <select id="currency" class="nav-item form-select form-select-m mb-0 bg-dark nav-link pl-5" aria-label=".form-select-lg example">
-                        <option selected value="cad">CDN</option>
-                        <option value="usd">USD</option>
-                        <option value="jpy">JPY</option>
-                        <option value="brl">BRL</option>
-                        <option value="eur">EURO</option>
-                        <option value="gbp">GPB</option>
-                        <option value="cny">CNY</option>
+                        <option selected value="cad"> CDN</option>
+                        <option value="usd"> USD</option>
+                        <option value="jpy"> JPY</option>
+                        <option value="brl"> BRL</option>
+                        <option value="eur"> EURO</option>
+                        <option value="gbp"> GPB</option>
+                        <option value="cny"> CNY</option>
                      </select>
                   </li>
-                  <li class="nav-item"><a href="https://stuwp.camosun.ca/ics_2021/wp071/" class="nav-link">| My Portfolio</a></li>
                   <li class="nav-item nav-link"><span id="joesSelect" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">| Joes Selection</span></li>
                   <li class="nav-item nav-link"><span id="surprise" data-bs-toggle="offcanvas" data-bs-target="#offcanvas">| Surprise me?</span></li>
                </ul>
@@ -47,11 +46,11 @@
          </div>
       </nav>
       <!-- Product section that will hold all of our Cards containing products -->
-      <section id="products" class="section row container-fluid bg-success">
+      <section id="products" class="section grid row container-fluid">
          <h2>Loading Products....</h2>
       </section>
       <!-- Your average everyday footer -->
-      <footer class="">
+      <footer id="footerCont">
          <div  class="container-fluid bg-dark text-center text-secondary pt-3 pb-2">
             <p class="text-light">Shop items created with the <span class="nav-link"><a href="https://fakestoreapi.com/"> Fake Store API</a></span></p>
          </div>
@@ -94,13 +93,13 @@
                      <div class="form-row">
                         <div class="form-group col-md-6">
                            <label for="email1">Email</label>
-                           <input type="text" class="form-control" id="email1" placeholder="joe@joes.com" title="email address must contain a @ and a .">
+                           <input type="text" class="form-control" id="email1" placeholder="hottie-sk8r-69@aol.com" title="email address must contain a @ and a .">
                         </div>
                      </div>
                      <div class="form-row">
                         <div class="form-group col-md-6">
                            <label for="phone1">Phone Number</label>
-                           <input type="text" class="form-control" id="phone1" placeholder="800-555-8675" title="Phone numbers may contain hyphens, spaces, or neither">
+                           <input type="text" class="form-control" id="phone1" placeholder="250-555-8675" title="Phone numbers may contain hyphens, spaces, or neither">
                         </div>
                      </div>
                      <div class="form-group">
@@ -113,7 +112,7 @@
                      </div>
                      <div class="form-group col-md-6">
                         <label for="city1">City</label>
-                        <input type="text" class="form-control" id="city1" placeholder="Idaho" title="City must be at least 3 letters">
+                        <input type="text" class="form-control" id="city1" placeholder="Victoria" title="City must be at least 3 letters">
                      </div>
                      <div class="form-group col-md-6">
                         <label for="country1">Country</label>
@@ -155,13 +154,13 @@
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="email2">Email</label>
-                              <input type="text" class="form-control" id="email2" placeholder="careers@joes.com" title="a valid email contains a @ and a .">
+                              <input type="text" class="form-control" id="email2" placeholder="hottie-sk8r-69@aol.com" title="a valid email contains a @ and a .">
                            </div>
                         </div>
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="phone1">Phone Number</label>
-                              <input type="text" class="form-control" id="phone2" placeholder="800-555-8675" title="a valid phone number may contain hyphens spaces or neither">
+                              <input type="text" class="form-control" id="phone2" placeholder="250-555-8675" title="a valid phone number may contain hyphens spaces or neither">
                            </div>
                         </div>
                         <div class="form-group">
@@ -175,7 +174,7 @@
                         <div class="form-row">
                            <div class="form-group col-md-6">
                               <label for="city2">City</label>
-                              <input type="text" class="form-control" id="city2" placeholder="Montpellier" title="Must be minimum 3 characters in length">
+                              <input type="text" class="form-control" id="city2" placeholder="Victoria" title="Must be minimum 3 characters in length">
                            </div>
                            <div class="form-group col-md-6">
                               <label for="country2">Country</label>

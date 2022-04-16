@@ -42,6 +42,18 @@ const fakeJSON = [
         "description": "May as well, you're already here!<br> Contains 31% of your daily sodium intake, per serving"
     },
     {
+        "category": "cookware",
+        "id": 1003,
+        "title": "10\" Cast Iron Pan",
+        "price": 39.99,
+        "rating": {
+            "count": "53",
+            "rate": 4.5
+        },
+        "image": "images/castironpan.png",
+        "description": "Cook your dinner, defend your home, don't put it in the dishwasher"
+    },
+    {
         "category": "currency",
         "id": 1000,
         "title": "Old Coins",
@@ -75,7 +87,7 @@ const fakeJSON = [
             "rate": 4
         },
         "image": "images/feta.jpg",
-        "description": "Fresh cow feta, made at a nearby dairy farm!"
+        "description": "Might make you poop, consume cautiously!"
     }
 
 ];
@@ -219,7 +231,7 @@ const provinces = [
     ];
     
 //Array of All Canadian Province Codes
-const provinceCodes = ["AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QB", "SK", "YT"];
+const provinceCodes = ["AB", "BC", "MB", "NB", "NL", "NT", "NS", "NU", "ON", "PE", "QC", "SK", "YT"];
 
 const getFormBaseID = () => {
     const id = ["name", "address1", "address2", "city", "country", "province", "postalZip"];
@@ -240,9 +252,9 @@ console.warn(`⠀%c
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡔⠋⠀⢰⠎⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⢆⣤⡞⠃⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣼⢠⠋⠁⠀⠀⠀⠀⠀⠀⠀⠀
-⠀⠀⠀⠀⢀⣀⣾⢳⠀⠀⠀⠀⢸⢠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⣀⡤⠴⠊⠉⠀⠀⠈⠳⡀⠀⠀⠘⢎⠢⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-⠳⣄⠀⠀⡠⡤⡀⠀⠘⣇⡀⠀⠀⠀⠉⠓⠒⠺⠭⢵⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⢀⣀⣾⢳⠀⠀⠀⠀⢸⢠⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀Get out of here, Traveller!
+⣀⡤⠴⠊⠉⠀⠀⠈⠳⡀⠀⠀⠘⢎⠢⣀⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀I will not be docked marks today,
+⠳⣄⠀⠀⡠⡤⡀⠀⠘⣇⡀⠀⠀⠀⠉⠓⠒⠺⠭⢵⣦⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀This is a console.warn!
 ⠀⢹⡆⠀⢷⡇⠁⠀⠀⣸⠇⠀⠀⠀⠀⠀⢠⢤⠀⠀⠘⢷⣆⡀⠀
 ⠀⠀⠘⠒⢤⡄⠖⢾⣭⣤⣄⠀⡔⢢⠀⡀⠎⣸⠀⠀⠀⠀⠹⣿⡀
 ⠀⠀⢀⡤⠜⠃⠀⠀⠘⠛⣿⢸⠀⡼⢠⠃⣤⡟⠀⠀⠀⠀⠀⣿⡇
